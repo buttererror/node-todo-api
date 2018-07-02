@@ -2,39 +2,52 @@ const mongoose = require('mongoose');
 
 
 mongoose.connect("mongodb://localhost:27017/TodoApp");
-
 let TodoSchema = mongoose.Schema({
    text: {
-      type: "String"
+      type: "String",
+      required: true,
+      minlength: 1,
+      trim: true
    },
    completed: {
-      type: "Boolean"
+      type: "Boolean",
+      default: false
    },
    completedAt: {
-      type: "Number"
+      type: "Number",
+      default: null
    }
 });
 
 let Todo = mongoose.model('Todo', TodoSchema);
 
 // let newTodo = new Todo({
-//    text: "Cook dinner"
+//    text: "  something to do  "
 // });
 //
 // newTodo.save().then((doc) => {
-//    console.log("saved todo", doc);
+//    console.log('save todo', doc);
 // }, (err) => {
-//    console.log("Unable to save todo");
+//    console.log("Unable to save todo", err);
 // });
 
-let newTodo = new Todo({
-   text: "run on the beach",
-   completed: false,
-   completedAt: 8
+let UserSchema = mongoose.Schema({
+   email: {
+      type: "String",
+      required: true,
+      trim: true,
+      minlength: 1
+   }
 });
 
-newTodo.save().then((doc) => {
-   console.log('save todo', doc);
+let User = mongoose.model('User', UserSchema);
+
+let newUser = new User({
+   email: "myEmail@gmail.com"
+});
+
+newUser.save().then((doc) => {
+   console.log("user saved", doc);
 }, (err) => {
-   console.log("Unable to save todo", err);
+   console.log("Unable to save the user", err);
 });
