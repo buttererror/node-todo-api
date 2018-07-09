@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb://localhost:27017/TodoApp");
+let db = {
+   localhost: "mongodb://localhost:27017/TodoApp",
+   mlabhost: "mongodb://<buttererror>:<b3Y0urS3lf>@ds231941.mlab.com:31941/mongo-data"
+};
+mongoose.connect(db.mlabhost || db.localhost);
 
 module.exports = {mongoose};
