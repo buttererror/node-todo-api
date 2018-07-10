@@ -46,19 +46,40 @@ app.get('/todos/:id', (req, res) => {
            // 400 - and send empty body back
    let id = req.params.id;
    if(!ObjectID.isValid(id)){
-      res.status(404).send();
-      return;
+      return res.status(404).send();
    }
    Todo.findById(id, (err, todos) => {
       if(err){
-         res.status(400).send();
-         return;
+         return res.status(400).send();
       }
       if(!todos){
-         res.status(404).send();
-         return;
+         return res.status(404).send();
       }
       res.send({todos});
+   });
+});
+
+app.delete('/todos/:id', (req, res) => {
+
+   // validate id
+      // error 404 - not found
+   // removeById
+   // success
+         // if not found 404 - not found
+         // remove and send todo with 200
+   // error 400 send empty body
+
+   let id = req.params.id;
+   if(!ObjectID.isValid(id)){
+      return res.status(404).send();
+   }
+   Todo.findByIdAndRemove(id).then((doc) => {
+      if(!doc){
+         return res.status(404).send();
+      }
+      res.send(doc);
+   }).catch((err) => {
+      res.status(400).send();
    });
 });
 
