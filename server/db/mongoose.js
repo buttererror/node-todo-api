@@ -11,5 +11,9 @@ let db = {
    localhost: "mongodb://localhost:27017/TodoApp",
    mlabhost: "mongodb://butterface:b3Y0urS3lf@ds231941.mlab.com:31941/mongo-data"
 };
-mongoose.connect(process.env.MONGODB_URI || db.localhost);
+if(process.env.HOME === "//app"){
+   mongoose.connect(db.mlabhost);
+}else{
+   mongoose.connect(db.localhost);
+}
 module.exports = {mongoose};
