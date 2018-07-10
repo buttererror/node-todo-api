@@ -12,8 +12,8 @@ let db = {
    mlabhost: "mongodb://butterface:b3Y0urS3lf@ds231941.mlab.com:31941/mongo-data"
 };
 if(process.env.HOME === "/app"){
-   mongoose.connect(db.mlabhost);
+   mongoose.connect(db.mlabhost, {useNewUrlParser: true});
 }else{
-   mongoose.connect(db.localhost);
+   mongoose.connect(db.localhost, {useNewUrlParser: true});
 }
 module.exports = {mongoose};
