@@ -110,6 +110,21 @@ app.patch('/todos/:id', (req, res) => {
    });
 });
 
+app.post('/users', (req, res) => {
+   let body = _.pick(req.body, ["email", "password"]);
+
+   let user = new User(body);
+   user.save().then(() => {
+      return user.generateAuthToken();
+   }).then((token) => {
+      console.log("before picking up");
+      res.header('x-auth', token).send(user);
+      console.log("after picking up");
+   }).catch((err) => {
+      res.status(400).send(err);
+   });
+});
+
 app.listen(port, () => {
    console.log(`started up on port ${port}`);
 });
